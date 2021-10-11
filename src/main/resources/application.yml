@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: ERROR
+
+spring:
+  application:
+    name: recruit
+  data:
+    rest:
+      base-path: /recruit
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: ${SECRET_DB_PASSWORD:P@ssw0rd}
+    username: ${SECRET_DB_USERNAME:thitiwas}
+    url: jdbc:mysql://${SECRET_DB_IP:localhost}:${SECRET_DB_PORT:3306}/${SECRET_DB_SGM:recruit}
+  jpa:
+    show-sql: true
