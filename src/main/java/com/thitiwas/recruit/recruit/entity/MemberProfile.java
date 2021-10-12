@@ -1,0 +1,50 @@
+package com.thitiwas.recruit.recruit.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+@Table(name = "member_profile")
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
+public class MemberProfile {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_profile_id")
+    private Long id;
+
+    /*@OneToOne(mappedBy = "memberProfiles")*/
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
+    @JsonIgnore
+    private Member member;
+
+    @Column(name = "first_name")
+    private String fistName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "telno")
+    private String telno;
+
+    @Column(name = "birth_date")
+    private Date birthdate;
+
+    @Column(name = "ability_desc")
+    private String abilityDesc;
+
+
+}

@@ -28,6 +28,12 @@ public class Member {
     @JsonIgnore
     private String password;
 
+    /*@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")*/
+    @OneToOne(mappedBy = "member")
+    private MemberProfile memberProfiles;
+
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "member_job_preference",
