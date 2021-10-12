@@ -7,6 +7,7 @@ import com.thitiwas.recruit.recruit.repository.UserRepository;
 import com.thitiwas.recruit.recruit.service.RoleService;
 import com.thitiwas.recruit.recruit.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,15 @@ public class DBTest {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+
+    @Test
+    public void findUserById() throws Exception {
+        User byId = userService.findById(12L).orElseThrow();
+        /*Hibernate.initialize(byId.getJobs());
+        Hibernate.initialize(byId.getRole());
+        Hibernate.initialize(byId.getUserVideos());*/
+        log.debug("byId :{}", byId);
+    }
 
     @Test
     @Transactional
