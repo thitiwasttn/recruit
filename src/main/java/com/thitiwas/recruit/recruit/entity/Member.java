@@ -3,6 +3,7 @@ package com.thitiwas.recruit.recruit.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @ToString
+@Where(clause = "status = 1")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +30,6 @@ public class Member {
     @JsonIgnore
     private String password;
 
-    /*@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id", referencedColumnName = "member_id")*/
     @OneToOne(mappedBy = "member")
     private MemberProfile memberProfiles;
 
@@ -49,5 +49,8 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<MemberCertificate> memberCertificate;
+
+    @Column(name = "status")
+    private boolean status;
 
 }

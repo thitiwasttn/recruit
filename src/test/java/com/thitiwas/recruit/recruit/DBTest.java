@@ -1,6 +1,7 @@
 package com.thitiwas.recruit.recruit;
 
 import com.thitiwas.recruit.recruit.entity.Member;
+import com.thitiwas.recruit.recruit.model.RegisterM;
 import com.thitiwas.recruit.recruit.service.MemberService;
 import com.thitiwas.recruit.recruit.service.RoleService;
 import com.thitiwas.recruit.recruit.service.UtilsService;
@@ -24,6 +25,18 @@ public class DBTest {
     private RoleService roleService;
     @Autowired
     private UtilsService utilsService;
+
+    @Test
+    public void register() throws Exception {
+        RegisterM registerM = RegisterM
+                .builder()
+                .email("thitiwas.n@g-able.com")
+                .password("Abc123")
+                .confirmPassword("Abc123")
+                .build();
+        Member register = memberService.register(registerM);
+        log.debug("register :{}", register);
+    }
 
     @Test
     public void hashPassword() {
