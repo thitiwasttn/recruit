@@ -1,8 +1,8 @@
 package com.thitiwas.recruit.recruit;
 
 import com.thitiwas.recruit.recruit.entity.Member;
+import com.thitiwas.recruit.recruit.service.MemberService;
 import com.thitiwas.recruit.recruit.service.RoleService;
-import com.thitiwas.recruit.recruit.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 public class DBTest {
     @Autowired
-    private UserService userService;
+    private MemberService userService;
     @Autowired
     private RoleService roleService;
 
