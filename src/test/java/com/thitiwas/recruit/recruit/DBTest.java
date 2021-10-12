@@ -40,9 +40,6 @@ public class DBTest {
     @Test
     @Transactional
     public void userInsertTest() throws Exception {
-        Role roleAdmin = roleService.findById(2L).orElseThrow();
-        List<Role> roles = new ArrayList<>();
-        roles.add(roleAdmin);
         User user = User
                 .builder()
                 .first_name("thitiwas")
@@ -50,7 +47,6 @@ public class DBTest {
                 .email("test@xx.com")
                 .image("noimage")
                 .password("1234")
-                .role(roles)
                 .build();
 
         User save = userService.save(user);
