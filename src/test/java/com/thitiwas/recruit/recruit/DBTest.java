@@ -1,5 +1,6 @@
 package com.thitiwas.recruit.recruit;
 
+import com.thitiwas.recruit.recruit.entity.Job;
 import com.thitiwas.recruit.recruit.entity.Role;
 import com.thitiwas.recruit.recruit.entity.User;
 import com.thitiwas.recruit.recruit.repository.RoleRepository;
@@ -29,12 +30,11 @@ public class DBTest {
     private RoleService roleService;
 
     @Test
+    @Transactional
     public void findUserById() throws Exception {
         User byId = userService.findById(12L).orElseThrow();
-        /*Hibernate.initialize(byId.getJobs());
-        Hibernate.initialize(byId.getRole());
-        Hibernate.initialize(byId.getUserVideos());*/
         log.debug("byId :{}", byId);
+        log.debug("jobs :{}", byId.getJobs());
     }
 
     @Test
