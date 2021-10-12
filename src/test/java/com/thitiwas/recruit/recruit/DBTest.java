@@ -3,6 +3,7 @@ package com.thitiwas.recruit.recruit;
 import com.thitiwas.recruit.recruit.entity.Member;
 import com.thitiwas.recruit.recruit.service.MemberService;
 import com.thitiwas.recruit.recruit.service.RoleService;
+import com.thitiwas.recruit.recruit.service.UtilsService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,14 +19,22 @@ import java.util.List;
 @Slf4j
 public class DBTest {
     @Autowired
-    private MemberService userService;
+    private MemberService memberService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private UtilsService utilsService;
+
+    @Test
+    public void hashPassword() {
+        String hashed = utilsService.hashStr("ABC123");
+        log.debug("hashed :{}", hashed);
+    }
 
     @Test
     @Transactional
     public void findUserById() throws Exception {
-        Member byId = userService.findById(12L).orElseThrow();
+        Member byId = memberService.findById(12L).orElseThrow();
         log.debug("byId :{}", byId);
         log.debug("jobs :{}", byId.getJobs());
     }
@@ -38,9 +47,9 @@ public class DBTest {
                 .password("1234")
                 .build();
 
-        Member save = userService.save(member);
+        Member save = memberService.save(member);
 
-        List<Member> memberAll = userService.findAll();
+        List<Member> memberAll = memberService.findAll();
 
         log.debug("userAll :{}", memberAll);
 
