@@ -39,13 +39,13 @@ public class User {
     private String image;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    /*@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
     @ToString.Exclude
-    private List<Role> role;
+    private List<Role> role;*/
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
