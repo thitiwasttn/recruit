@@ -28,15 +28,6 @@ public class Member {
     @JsonIgnore
     private String password;
 
-    @Column(name = "first_name")
-    private String first_name;
-
-    @Column(name = "last_name")
-    private String last_name;
-
-    @Column(name = "image")
-    private String image;
-
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "member_job_preference",

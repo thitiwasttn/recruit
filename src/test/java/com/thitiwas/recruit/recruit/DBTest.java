@@ -35,10 +35,6 @@ public class DBTest {
     public void userInsertTest() throws Exception {
         Member member = Member
                 .builder()
-                .first_name("thitiwas")
-                .last_name("nupan")
-                .email("test@xx.com")
-                .image("noimage")
                 .password("1234")
                 .build();
 
