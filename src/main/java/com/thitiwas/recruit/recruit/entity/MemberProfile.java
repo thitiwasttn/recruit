@@ -20,9 +20,7 @@ public class MemberProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_profile_id")
     private Long id;
-
-    /*@OneToOne(mappedBy = "memberProfiles")*/
-
+    
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     @JsonIgnore
