@@ -49,4 +49,8 @@ public class Member {
     @ToString.Exclude
     private List<MemberVideo> memberVideos;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<MemberCertificate> memberCertificate;
+
 }
