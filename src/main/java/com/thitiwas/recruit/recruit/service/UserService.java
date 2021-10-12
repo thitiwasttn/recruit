@@ -1,14 +1,14 @@
 package com.thitiwas.recruit.recruit.service;
 
-import com.thitiwas.recruit.recruit.entity.User;
+import com.thitiwas.recruit.recruit.entity.Member;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    List<User> findAll();
+    List<Member> findAll();
 
-    Optional<User> findById(Long userId);
+    Optional<Member> findById(Long userId);
 
-    User save(User user);
+    Member save(Member member);
 }

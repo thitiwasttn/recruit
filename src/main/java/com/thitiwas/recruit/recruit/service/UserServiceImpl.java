@@ -1,6 +1,6 @@
 package com.thitiwas.recruit.recruit.service;
 
-import com.thitiwas.recruit.recruit.entity.User;
+import com.thitiwas.recruit.recruit.entity.Member;
 import com.thitiwas.recruit.recruit.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,17 +18,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<Member> findAll() {
         return userRepository.findAll();
     }
 
     @Override
-    public Optional<User> findById(Long userId) {
+    public Optional<Member> findById(Long userId) {
         return userRepository.findById(userId);
     }
 
     @Override
-    public User save(User user) {
-        return userRepository.save(user);
+    public Member save(Member member) {
+        return userRepository.save(member);
     }
 }

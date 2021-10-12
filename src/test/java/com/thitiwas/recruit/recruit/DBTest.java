@@ -1,14 +1,9 @@
 package com.thitiwas.recruit.recruit;
 
-import com.thitiwas.recruit.recruit.entity.Job;
-import com.thitiwas.recruit.recruit.entity.Role;
-import com.thitiwas.recruit.recruit.entity.User;
-import com.thitiwas.recruit.recruit.repository.RoleRepository;
-import com.thitiwas.recruit.recruit.repository.UserRepository;
+import com.thitiwas.recruit.recruit.entity.Member;
 import com.thitiwas.recruit.recruit.service.RoleService;
 import com.thitiwas.recruit.recruit.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Hibernate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +25,7 @@ public class DBTest {
     @Test
     @Transactional
     public void findUserById() throws Exception {
-        User byId = userService.findById(12L).orElseThrow();
+        Member byId = userService.findById(12L).orElseThrow();
         log.debug("byId :{}", byId);
         log.debug("jobs :{}", byId.getJobs());
     }
@@ -38,7 +33,7 @@ public class DBTest {
     @Test
     @Transactional
     public void userInsertTest() throws Exception {
-        User user = User
+        Member member = Member
                 .builder()
                 .first_name("thitiwas")
                 .last_name("nupan")
@@ -47,11 +42,11 @@ public class DBTest {
                 .password("1234")
                 .build();
 
-        User save = userService.save(user);
+        Member save = userService.save(member);
 
-        List<User> userAll = userService.findAll();
+        List<Member> memberAll = userService.findAll();
 
-        log.debug("userAll :{}", userAll);
+        log.debug("userAll :{}", memberAll);
 
     }
 }
