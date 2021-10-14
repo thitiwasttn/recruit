@@ -3,7 +3,7 @@ server:
 
 logging:
   level:
-    root: ERROR
+    root: DEBUG
 
 spring:
   application:
@@ -15,6 +15,13 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     password: ${SECRET_DB_PASSWORD:P@ssw0rd}
     username: ${SECRET_DB_USERNAME:thitiwas}
-    url: jdbc:mysql://${SECRET_DB_IP:localhost}:${SECRET_DB_PORT:3306}/${SECRET_DB_SGM:recruit}
+    url: jdbc:mysql://${SECRET_DB_IP:61.19.242.56}:${SECRET_DB_PORT:3306}/${SECRET_DB_SGM:recruit}
   jpa:
     show-sql: true
+
+---
+custom:
+  constant:
+    secretPassword: 21c1005b9a58c49c192285575fcc6b6b38b51c173f8a04c5bbc34a1e5c2b042637b25e4d520f0c4ce4cb01b787549384c0461d207f6c04ce28c4b848ce745b151f819a211add6f462102e7084d6b9de0
+    secretLogin: dd09e76c73abeaa898bd645b0928f573c15d3051e12cc5a65c653dbacd2494ca81773d9dc9af8497610c17c84df970d21a3cac2b586ca5937acd928b6333de87acd24cf3f61d47172b1ceea85281f0a
+    issuer: backendService

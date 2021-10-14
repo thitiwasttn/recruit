@@ -1,5 +1,7 @@
 package com.thitiwas.recruit.recruit.config;
 
+import com.thitiwas.recruit.recruit.config.token.TokenFilerConfigurer;
+import com.thitiwas.recruit.recruit.service.TokenService;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,24 +16,29 @@ import java.util.Collections;
 public class WebConfig extends WebSecurityConfigurerAdapter {
 
     private final String[] PUBLIC = {
-            "/actuator/**",
-            "/user/register",
-            "/user/login",
-            "/user/activate",
-            "/user/resend-activation-email",
-            "/socket/**",
-            "/channel/**",
-            "/recruit/**",
-            "/api/**"
+            "/api/member/register",
+            "/api/member/login"
     };
+
+    private final TokenService tokenService;
+
+    public WebConfig(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        // super.configure(web);
+        super.configure(web);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        /*http.cors().disable().csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().authorizeRequests().antMatchers(PUBLIC).anonymous()
+                .anyRequest().authenticated()
+                .and().apply(new TokenFilerConfigurer(tokenService));*/
+
         http.cors(config -> {
                     CorsConfiguration cors = new CorsConfiguration();
                     cors.setAllowCredentials(true);
@@ -50,7 +57,8 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 }).csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests().antMatchers(PUBLIC).anonymous()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and().apply(new TokenFilerConfigurer(tokenService));
         // super.configure(http);
     }
 

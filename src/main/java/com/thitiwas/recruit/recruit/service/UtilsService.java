@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UtilsService {
 
-    @Value("${custom.constant.secret}")
+    @Value("${custom.constant.secretPassword}")
     private String secret;
 
     public String hashStr(String originalString) {
