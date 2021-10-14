@@ -23,4 +23,8 @@ public interface MemberService {
     ResponseLoginM login(LoginM loginM) throws IllegalAccessException;
 
     MemberProfile addProfile(Member member, MemberProfile memberProfile);
+
+    MemberProfile updateProfile(MemberProfile memberProfile);
+
+    MemberProfile updateProfileProcess(Member member, MemberProfile memberProfile);
 }

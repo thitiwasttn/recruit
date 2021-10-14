@@ -53,4 +53,11 @@ public class MemberController {
         Member member = securityService.getMember();
         return ResponseEntity.ok(memberService.addProfile(member, memberProfile));
     }
+
+    @PostMapping("/profile/update")
+    @Transactional
+    public ResponseEntity<MemberProfile> updateProfile(@RequestBody MemberProfile memberProfile) {
+        Member member = securityService.getMember();
+        return ResponseEntity.ok(memberService.updateProfileProcess(member, memberProfile));
+    }
 }

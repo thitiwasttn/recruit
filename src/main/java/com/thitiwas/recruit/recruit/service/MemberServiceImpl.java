@@ -8,6 +8,7 @@ import com.thitiwas.recruit.recruit.model.ResponseLoginM;
 import com.thitiwas.recruit.recruit.repository.MemberProfileRepository;
 import com.thitiwas.recruit.recruit.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,6 +99,27 @@ public class MemberServiceImpl implements MemberService {
         memberProfile.setMember(member);
 
         log.debug("memberProfile :{}", memberProfile);
+
+        return memberProfileRepository.saveAndFlush(memberProfile);
+    }
+
+    @Override
+    public MemberProfile updateProfile(MemberProfile memberProfile) {
+        return memberProfileRepository.save(memberProfile);
+    }
+
+    @Override
+    public MemberProfile updateProfileProcess(Member member, MemberProfile memberProfile) {
+        Optional<MemberProfile> refreshProfile = memberProfileRepository.findById(memberProfile.getId());
+        if (refreshProfile.isEmpty()) {
+            throw new IllegalStateException("profile not found");
+        }
+        // log.debug("memberProfile.getMember() :{}", refreshProfile.get().getMember());
+        if (refreshProfile.get().getMember().getId().longValue() != member.getId().longValue()) {
+            throw new IllegalStateException("member id not match");
+        }
+
+        memberProfile.setMember(member);
 
         return memberProfileRepository.saveAndFlush(memberProfile);
     }
