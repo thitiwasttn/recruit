@@ -1,6 +1,7 @@
 package com.thitiwas.recruit.recruit.service;
 
 import com.thitiwas.recruit.recruit.entity.Member;
+import com.thitiwas.recruit.recruit.entity.MemberProfile;
 import com.thitiwas.recruit.recruit.model.LoginM;
 import com.thitiwas.recruit.recruit.model.RegisterM;
 import com.thitiwas.recruit.recruit.model.ResponseLoginM;
@@ -20,4 +21,6 @@ public interface MemberService {
     Optional<Member> findByEmail(String email);
 
     ResponseLoginM login(LoginM loginM) throws IllegalAccessException;
+
+    MemberProfile addProfile(Member member, MemberProfile memberProfile);
 }

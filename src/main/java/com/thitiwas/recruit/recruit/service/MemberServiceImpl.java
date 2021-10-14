@@ -1,9 +1,11 @@
 package com.thitiwas.recruit.recruit.service;
 
 import com.thitiwas.recruit.recruit.entity.Member;
+import com.thitiwas.recruit.recruit.entity.MemberProfile;
 import com.thitiwas.recruit.recruit.model.LoginM;
 import com.thitiwas.recruit.recruit.model.RegisterM;
 import com.thitiwas.recruit.recruit.model.ResponseLoginM;
+import com.thitiwas.recruit.recruit.repository.MemberProfileRepository;
 import com.thitiwas.recruit.recruit.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,14 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final UtilsService utilsService;
     private final TokenService tokenService;
+    private final MemberProfileRepository memberProfileRepository;
 
     @Autowired
-    public MemberServiceImpl(MemberRepository memberRepository, UtilsService utilsService, TokenService tokenService) {
+    public MemberServiceImpl(MemberRepository memberRepository, UtilsService utilsService, TokenService tokenService, MemberProfileRepository memberProfileRepository) {
         this.memberRepository = memberRepository;
         this.utilsService = utilsService;
         this.tokenService = tokenService;
+        this.memberProfileRepository = memberProfileRepository;
     }
 
     @Override
@@ -86,5 +90,15 @@ public class MemberServiceImpl implements MemberService {
                 .builder()
                 .token(token)
                 .build();
+    }
+
+    @Override
+    public MemberProfile addProfile(Member member, MemberProfile memberProfile) {
+        // TODO valid
+        memberProfile.setMember(member);
+
+        log.debug("memberProfile :{}", memberProfile);
+
+        return memberProfileRepository.saveAndFlush(memberProfile);
     }
 }
