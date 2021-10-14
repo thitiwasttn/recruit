@@ -1,6 +1,7 @@
 package com.thitiwas.recruit.recruit.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,8 @@ public class MemberProfile {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     @JsonIgnore
+    @JsonIgnoreProperties("memberProfiles")
+    @ToString.Exclude
     private Member member;
 
     @Column(name = "first_name")

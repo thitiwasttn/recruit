@@ -54,13 +54,12 @@ public class TokenFilter extends GenericFilterBean {
             return;
         }
 
-        String userId = String.valueOf(decoded.getClaim("id").asLong());
         String userType = decoded.getClaim(Constant.JWT_USER_TYPE).asString();
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(userType));
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(userId,
-                        "(protected)",
+                new UsernamePasswordAuthenticationToken(decoded,
+                        token,
                         grantedAuthorities);
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(usernamePasswordAuthenticationToken);
