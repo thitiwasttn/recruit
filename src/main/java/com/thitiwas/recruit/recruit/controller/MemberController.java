@@ -60,4 +60,10 @@ public class MemberController {
         Member member = securityService.getMember();
         return ResponseEntity.ok(memberService.updateProfileProcess(member, memberProfile));
     }
+
+    @GetMapping("/getSelf")
+    public ResponseEntity<Member> getMember() {
+        Member member = securityService.getMember();
+        return ResponseEntity.ok(memberService.getMemberProcess(member));
+    }
 }

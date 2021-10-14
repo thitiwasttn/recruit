@@ -27,4 +27,6 @@ public interface MemberService {
     MemberProfile updateProfile(MemberProfile memberProfile);
 
     MemberProfile updateProfileProcess(Member member, MemberProfile memberProfile);
+
+    Member getMemberProcess(Member member);
 }

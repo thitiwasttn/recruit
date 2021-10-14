@@ -123,4 +123,9 @@ public class MemberServiceImpl implements MemberService {
 
         return memberProfileRepository.saveAndFlush(memberProfile);
     }
+
+    @Override
+    public Member getMemberProcess(Member member) {
+        return member;
+    }
 }
