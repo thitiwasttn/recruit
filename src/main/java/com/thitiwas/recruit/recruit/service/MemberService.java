@@ -1,12 +1,10 @@
 package com.thitiwas.recruit.recruit.service;
 
 import com.thitiwas.recruit.recruit.entity.Member;
+import com.thitiwas.recruit.recruit.entity.MemberCertificate;
 import com.thitiwas.recruit.recruit.entity.MemberProfile;
 import com.thitiwas.recruit.recruit.entity.MemberVideo;
-import com.thitiwas.recruit.recruit.model.LoginM;
-import com.thitiwas.recruit.recruit.model.RegisterM;
-import com.thitiwas.recruit.recruit.model.RequestUpdateMemberFullM;
-import com.thitiwas.recruit.recruit.model.ResponseLoginM;
+import com.thitiwas.recruit.recruit.model.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -39,4 +37,8 @@ public interface MemberService {
     MemberVideo saveVideo(Member member, MultipartFile video) throws IOException;
 
     void deleteVideo(Long videoId) throws IOException;
+
+    MemberCertificate saveCert(Member member, RequestMemberCertificationM model) throws IOException;
+
+    void deleteCert(Long certId);
 }

@@ -1,10 +1,12 @@
 package com.thitiwas.recruit.recruit.controller;
 
 import com.thitiwas.recruit.recruit.entity.Member;
+import com.thitiwas.recruit.recruit.entity.MemberCertificate;
 import com.thitiwas.recruit.recruit.entity.MemberProfile;
 import com.thitiwas.recruit.recruit.entity.MemberVideo;
 import com.thitiwas.recruit.recruit.model.LoginM;
 import com.thitiwas.recruit.recruit.model.RegisterM;
+import com.thitiwas.recruit.recruit.model.RequestMemberCertificationM;
 import com.thitiwas.recruit.recruit.model.ResponseLoginM;
 import com.thitiwas.recruit.recruit.service.MemberService;
 import com.thitiwas.recruit.recruit.service.SecurityService;
@@ -87,5 +89,21 @@ public class MemberController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/cert/save")
+    @Transactional
+    public ResponseEntity<MemberCertificate> certUpdate(@RequestParam("file") MultipartFile file) throws IOException {
+        Member member = securityService.getMember();
+        RequestMemberCertificationM model = new RequestMemberCertificationM();
+        model.setCertification(file);
+        return ResponseEntity.ok(memberService.saveCert(member, model));
+    }
+
+    @DeleteMapping("/cert/delete/{certId}")
+    @Transactional
+    public ResponseEntity<Void> deleteCert(@PathVariable("certId") Long certId) throws IOException {
+        Member member = securityService.getMember();
+        memberService.deleteCert(certId);
+        return ResponseEntity.ok().build();
+    }
 
 }

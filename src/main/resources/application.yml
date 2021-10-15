@@ -33,3 +33,6 @@ custom:
   video:
     file:
       location: /Users/thitiwasnupan/work/temp/output_test/videos
+  certification:
+    file:
+      location: /Users/thitiwasnupan/work/temp/output_test/certification
