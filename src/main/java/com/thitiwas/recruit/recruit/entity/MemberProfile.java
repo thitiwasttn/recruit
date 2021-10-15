@@ -22,7 +22,7 @@ public class MemberProfile {
     @Column(name = "member_profile_id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     @JsonIgnore
     @JsonIgnoreProperties("memberProfiles")

@@ -20,8 +20,8 @@ public class MemberCertificate {
     @Column(name = "certificate_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id" , insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     @JsonIgnore
     @ToString.Exclude
     private Member member;
