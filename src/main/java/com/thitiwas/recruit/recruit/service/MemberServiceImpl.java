@@ -2,17 +2,20 @@ package com.thitiwas.recruit.recruit.service;
 
 import com.thitiwas.recruit.recruit.entity.Member;
 import com.thitiwas.recruit.recruit.entity.MemberProfile;
-import com.thitiwas.recruit.recruit.model.LoginM;
-import com.thitiwas.recruit.recruit.model.RegisterM;
-import com.thitiwas.recruit.recruit.model.ResponseLoginM;
+import com.thitiwas.recruit.recruit.entity.MemberVideo;
+import com.thitiwas.recruit.recruit.model.*;
 import com.thitiwas.recruit.recruit.repository.MemberProfileRepository;
 import com.thitiwas.recruit.recruit.repository.MemberRepository;
+import com.thitiwas.recruit.recruit.repository.MemberVideoRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,13 +26,20 @@ public class MemberServiceImpl implements MemberService {
     private final UtilsService utilsService;
     private final TokenService tokenService;
     private final MemberProfileRepository memberProfileRepository;
+    private final FileService fileService;
+    private final MemberVideoRepository memberVideoRepository;
+
+    @Value("${custom.video.file.location}")
+    private String videoLocation;
 
     @Autowired
-    public MemberServiceImpl(MemberRepository memberRepository, UtilsService utilsService, TokenService tokenService, MemberProfileRepository memberProfileRepository) {
+    public MemberServiceImpl(MemberRepository memberRepository, UtilsService utilsService, TokenService tokenService, MemberProfileRepository memberProfileRepository, FileService fileService, MemberVideoRepository memberVideoRepository) {
         this.memberRepository = memberRepository;
         this.utilsService = utilsService;
         this.tokenService = tokenService;
         this.memberProfileRepository = memberProfileRepository;
+        this.fileService = fileService;
+        this.memberVideoRepository = memberVideoRepository;
     }
 
     @Override
@@ -127,5 +137,71 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member getMemberProcess(Member member) {
         return member;
+    }
+
+    @Override
+    public Member saveFullPage(Member member, RequestUpdateMemberFullM model) throws IOException {
+        if (model.getMemberProfile().getMember().getId().longValue() != member.getId().longValue()) {
+            throw new IllegalStateException();
+        }
+
+        saveMemberVideoApi(member, model.getMemberVideos());
+
+
+        return findById(member.getId()).orElseThrow();
+    }
+
+    @Override
+    public MemberVideo saveVideo(Member member, MultipartFile video) throws IOException {
+        MemberVideo entity = new MemberVideo();
+
+        entity.setMember(member);
+        entity.setVideoName(video.getName());
+        MemberVideo save = memberVideoRepository.save(entity);
+
+        File videoPath = new File(videoLocation.concat("/").concat(String.valueOf(member.getId())));
+        boolean exists = videoPath.exists();
+        if (!exists) {
+            boolean mkdirs = videoPath.mkdirs();
+            if (!mkdirs) {
+                throw new IOException();
+            }
+        }
+        String videoNameWithExtension = String.valueOf(save.getId()).concat(".").concat(fileService.getFileExtension(video));
+        fileService.write(videoPath.getAbsolutePath(),
+                videoNameWithExtension,
+                video);
+
+        save.setVideoName(videoNameWithExtension);
+
+        return memberVideoRepository.save(entity);
+    }
+
+    private void saveMemberVideoApi(Member member, List<MemberVideoM> memberVideos) throws IOException {
+        for (MemberVideoM memberVideo : memberVideos) {
+            if (memberVideo.isVideoModify()) {
+
+                saveVideo(member, memberVideo.getFile());
+
+            }
+        }
+    }
+
+    @Override
+    public void deleteVideo(Long videoId) throws IOException {
+        MemberVideo memberVideo = memberVideoRepository.findById(videoId)
+                .orElseThrow();
+
+        String pathFile = videoLocation
+                .concat("/")
+                .concat(String.valueOf(memberVideo.getMember().getId()))
+                .concat("/")
+                .concat(memberVideo.getVideoName());
+        
+        File file = new File(pathFile);
+        boolean delete = file.delete();
+        log.debug("delete :{}", delete);
+        memberVideoRepository.delete(memberVideo);
+
     }
 }

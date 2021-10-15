@@ -23,8 +23,8 @@ public class MemberVideo {
     @Column(name = "video_name")
     private String videoName;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id" , insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     @JsonIgnore
     @ToString.Exclude
     private Member member;
