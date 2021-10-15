@@ -37,6 +37,8 @@ public class MemberServiceImpl implements MemberService {
     private String certificationLocation;
     @Value("${custom.image.file.location}")
     private String imageLocation;
+    @Value("${custom.image.url}")
+    private String imageUrl;
 
     @Autowired
     public MemberServiceImpl(MemberRepository memberRepository, UtilsService utilsService, TokenService tokenService, MemberProfileRepository memberProfileRepository, FileService fileService, MemberVideoRepository memberVideoRepository, MemberCertificationRepository memberCertificationRepository) {
@@ -143,6 +145,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member getMemberProcess(Member member) {
+        String image = member.getMemberProfiles().getImage();
+        if (image != null && !image.equals("")) {
+            image = imageUrl.concat("/").concat(String.valueOf(member.getId())).concat("/").concat(image);
+            member.getMemberProfiles().setImage(image);
+        }
         return member;
     }
 

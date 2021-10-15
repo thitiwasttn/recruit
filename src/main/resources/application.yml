@@ -32,10 +32,12 @@ custom:
     issuer: backendService
   video:
     file:
-      location: /Users/thitiwasnupan/work/temp/output_test/videos
+      location: /root/file/videos
   certification:
     file:
-      location: /Users/thitiwasnupan/work/temp/output_test/certification
+      location: /root/file/certification
   image:
     file:
-      location: /Users/thitiwasnupan/work/temp/output_test/images
+      location: /root/file/images
+    url: http://localhost:81/images
+
