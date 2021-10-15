@@ -1,9 +1,6 @@
 package com.thitiwas.recruit.recruit.service;
 
-import com.thitiwas.recruit.recruit.entity.Member;
-import com.thitiwas.recruit.recruit.entity.MemberCertificate;
-import com.thitiwas.recruit.recruit.entity.MemberProfile;
-import com.thitiwas.recruit.recruit.entity.MemberVideo;
+import com.thitiwas.recruit.recruit.entity.*;
 import com.thitiwas.recruit.recruit.model.*;
 import com.thitiwas.recruit.recruit.repository.MemberCertificationRepository;
 import com.thitiwas.recruit.recruit.repository.MemberProfileRepository;
@@ -252,5 +249,11 @@ public class MemberServiceImpl implements MemberService {
         File file = new File(pathFile);
         boolean delete = file.delete();
         memberCertificationRepository.delete(memberCertificate);
+    }
+
+    @Override
+    public Member deleteAndUpdateJob(Member member, List<Job> jobs) {
+        member.setJobs(jobs);
+        return save(member);
     }
 }

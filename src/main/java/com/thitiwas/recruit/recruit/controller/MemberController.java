@@ -1,9 +1,6 @@
 package com.thitiwas.recruit.recruit.controller;
 
-import com.thitiwas.recruit.recruit.entity.Member;
-import com.thitiwas.recruit.recruit.entity.MemberCertificate;
-import com.thitiwas.recruit.recruit.entity.MemberProfile;
-import com.thitiwas.recruit.recruit.entity.MemberVideo;
+import com.thitiwas.recruit.recruit.entity.*;
 import com.thitiwas.recruit.recruit.model.LoginM;
 import com.thitiwas.recruit.recruit.model.RegisterM;
 import com.thitiwas.recruit.recruit.model.RequestMemberCertificationM;
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/member")
@@ -104,6 +102,14 @@ public class MemberController {
         Member member = securityService.getMember();
         memberService.deleteCert(certId);
         return ResponseEntity.ok().build();
+    }
+
+
+    @PostMapping("/member/job")
+    @Transactional
+    public ResponseEntity<Member> certUpdate(@RequestBody List<Job> jobs) throws IOException {
+        Member member = securityService.getMember();
+        return ResponseEntity.ok(memberService.deleteAndUpdateJob(member, jobs));
     }
 
 }

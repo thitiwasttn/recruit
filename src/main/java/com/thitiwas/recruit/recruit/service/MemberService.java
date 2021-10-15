@@ -1,9 +1,6 @@
 package com.thitiwas.recruit.recruit.service;
 
-import com.thitiwas.recruit.recruit.entity.Member;
-import com.thitiwas.recruit.recruit.entity.MemberCertificate;
-import com.thitiwas.recruit.recruit.entity.MemberProfile;
-import com.thitiwas.recruit.recruit.entity.MemberVideo;
+import com.thitiwas.recruit.recruit.entity.*;
 import com.thitiwas.recruit.recruit.model.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,4 +38,6 @@ public interface MemberService {
     MemberCertificate saveCert(Member member, RequestMemberCertificationM model) throws IOException;
 
     void deleteCert(Long certId);
+
+    Member deleteAndUpdateJob(Member member, List<Job> jobs);
 }
