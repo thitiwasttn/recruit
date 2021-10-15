@@ -197,10 +197,9 @@ public class MemberServiceImpl implements MemberService {
                 .concat(String.valueOf(memberVideo.getMember().getId()))
                 .concat("/")
                 .concat(memberVideo.getVideoName());
-        
+
         File file = new File(pathFile);
         boolean delete = file.delete();
-        log.debug("delete :{}", delete);
         memberVideoRepository.delete(memberVideo);
 
     }
