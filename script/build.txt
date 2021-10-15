@@ -1,3 +1,11 @@
 mvn clean package -DskipTests
 
 java -jar target/app.jar
+
+docker build . -t demo-irecuit-member-backend
+
+docker volume create demo_recuit_file
+
+docker run --rm -p 8080:8080 \
+    -v demo_recuit_file:/root/file \
+    -d -it demo-irecuit-member-backend
