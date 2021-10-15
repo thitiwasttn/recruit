@@ -54,4 +54,5 @@ public class Member {
     @Column(name = "status")
     private boolean status;
 
+
 }

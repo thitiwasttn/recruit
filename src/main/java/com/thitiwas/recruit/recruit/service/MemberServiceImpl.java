@@ -7,6 +7,7 @@ import com.thitiwas.recruit.recruit.repository.MemberProfileRepository;
 import com.thitiwas.recruit.recruit.repository.MemberRepository;
 import com.thitiwas.recruit.recruit.repository.MemberVideoRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,8 @@ public class MemberServiceImpl implements MemberService {
     private String videoLocation;
     @Value("${custom.certification.file.location}")
     private String certificationLocation;
+    @Value("${custom.image.file.location}")
+    private String imageLocation;
 
     @Autowired
     public MemberServiceImpl(MemberRepository memberRepository, UtilsService utilsService, TokenService tokenService, MemberProfileRepository memberProfileRepository, FileService fileService, MemberVideoRepository memberVideoRepository, MemberCertificationRepository memberCertificationRepository) {
@@ -255,5 +258,26 @@ public class MemberServiceImpl implements MemberService {
     public Member deleteAndUpdateJob(Member member, List<Job> jobs) {
         member.setJobs(jobs);
         return save(member);
+    }
+
+    @Override
+    public void memberAddImage(Member member, MultipartFile file) throws IOException {
+        Hibernate.initialize(member.getMemberProfiles());
+        member = memberRepository.findById(member.getId()).orElseThrow();
+        MemberProfile memberProfiles = member.getMemberProfiles();
+        log.debug("memberProfiles :{}", memberProfiles);
+
+        String pathImage = imageLocation.concat("/").concat(String.valueOf(member.getId()));
+        File path = new File(pathImage);
+        if (!path.exists()) {
+            boolean mkdirs = path.mkdirs();
+        }
+
+        String nameWithExtension = String.valueOf(member.getId()).concat(".").concat(fileService.getFileExtension(file));
+        fileService.write(path.getAbsolutePath(),
+                nameWithExtension,
+                file);
+        memberProfiles.setImage(nameWithExtension);
+        memberProfileRepository.save(memberProfiles);
     }
 }

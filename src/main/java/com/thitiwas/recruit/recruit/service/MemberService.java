@@ -40,4 +40,6 @@ public interface MemberService {
     void deleteCert(Long certId);
 
     Member deleteAndUpdateJob(Member member, List<Job> jobs);
+
+    void memberAddImage(Member member, MultipartFile file) throws IOException;
 }

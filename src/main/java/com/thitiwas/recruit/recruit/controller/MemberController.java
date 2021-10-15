@@ -112,4 +112,12 @@ public class MemberController {
         return ResponseEntity.ok(memberService.deleteAndUpdateJob(member, jobs));
     }
 
+    @PostMapping("/image/update")
+    @Transactional
+    public ResponseEntity<Void> imageUpdate(@RequestParam("file") MultipartFile file) throws IOException {
+        Member member = securityService.getMember();
+        memberService.memberAddImage(member, file);
+        return ResponseEntity.ok().build();
+    }
+
 }

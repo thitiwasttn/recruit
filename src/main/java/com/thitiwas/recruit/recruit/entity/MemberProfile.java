@@ -48,4 +48,8 @@ public class MemberProfile {
     private String abilityDesc;
 
 
+    @Column(name = "image")
+    private String image;
+
+
 }

@@ -19,7 +19,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     password: ${SECRET_DB_PASSWORD:P@ssw0rd}
     username: ${SECRET_DB_USERNAME:thitiwas}
-    url: jdbc:mysql://${SECRET_DB_IP:61.19.242.56}:${SECRET_DB_PORT:3306}/${SECRET_DB_SGM:recruit}
+    url: jdbc:mysql://${SECRET_DB_IP:localhost}:${SECRET_DB_PORT:3306}/${SECRET_DB_SGM:recruit}
   jpa:
     show-sql: true
 
@@ -36,3 +36,6 @@ custom:
   certification:
     file:
       location: /Users/thitiwasnupan/work/temp/output_test/certification
+  image:
+    file:
+      location: /Users/thitiwasnupan/work/temp/output_test/images
