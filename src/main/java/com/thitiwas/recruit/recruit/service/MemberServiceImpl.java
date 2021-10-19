@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -129,14 +130,14 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberProfile updateProfileProcess(Member member, MemberProfile memberProfile) {
-        Optional<MemberProfile> refreshProfile = memberProfileRepository.findById(memberProfile.getId());
+        /*Optional<MemberProfile> refreshProfile = memberProfileRepository.findById(memberProfile.getId());
         if (refreshProfile.isEmpty()) {
             throw new IllegalStateException("profile not found");
         }
         // log.debug("memberProfile.getMember() :{}", refreshProfile.get().getMember());
         if (refreshProfile.get().getMember().getId().longValue() != member.getId().longValue()) {
             throw new IllegalStateException("member id not match");
-        }
+        }*/
 
         memberProfile.setMember(member);
 
@@ -145,11 +146,17 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member getMemberProcess(Member member) {
-        String image = member.getMemberProfiles().getImage();
-        if (image != null && !image.equals("")) {
-            image = imageUrl.concat("/").concat(String.valueOf(member.getId())).concat("/").concat(image);
-            member.getMemberProfiles().setImage(image);
+        if (member.getMemberProfiles() != null) {
+            String image = member.getMemberProfiles().getImage();
+            if (image != null && !image.equals("")) {
+                image = imageUrl.concat("/").concat(String.valueOf(member.getId())).concat("/").concat(image);
+                member.getMemberProfiles().setImage(image);
+            }
+        } else {
+            String image = imageUrl;
+
         }
+
         return member;
     }
 
@@ -263,6 +270,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member deleteAndUpdateJob(Member member, List<Job> jobs) {
+        member.setJobs(new ArrayList<>());
+        save(member);
         member.setJobs(jobs);
         return save(member);
     }

@@ -19,7 +19,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     password: ${SECRET_DB_PASSWORD:P@ssw0rd}
     username: ${SECRET_DB_USERNAME:thitiwas}
-    url: jdbc:mysql://${SECRET_DB_IP:localhost}:${SECRET_DB_PORT:3306}/${SECRET_DB_SGM:recruit}
+    url: jdbc:mysql://${SECRET_DB_IP:172.17.0.1}:${SECRET_DB_PORT:3306}/${SECRET_DB_SGM:recruit}
   jpa:
     show-sql: true
 
