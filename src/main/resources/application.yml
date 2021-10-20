@@ -39,5 +39,5 @@ custom:
   image:
     file:
       location: /root/file/images
-    url: http://localhost:81/images
+    url: ${SECRET_IMAGE_URL:http://61.19.242.56:81/images}
 

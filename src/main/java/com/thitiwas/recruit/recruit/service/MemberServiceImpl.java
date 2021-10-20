@@ -139,9 +139,17 @@ public class MemberServiceImpl implements MemberService {
             throw new IllegalStateException("member id not match");
         }*/
 
-        memberProfile.setMember(member);
+        MemberProfile memberProfile1 = new MemberProfile();
+        memberProfile1.setId(memberProfile.getId());
+        memberProfile1.setFirstName(memberProfile.getFirstName());
+        memberProfile1.setLastName(memberProfile.getLastName());
+        memberProfile1.setTelno(memberProfile.getTelno());
+        memberProfile1.setAddress(memberProfile.getAddress());
+        memberProfile1.setAbilityDesc(memberProfile.getAbilityDesc());
+        memberProfile1.setBirthdate(memberProfile.getBirthdate());
+        memberProfile1.setMember(member);
 
-        return memberProfileRepository.saveAndFlush(memberProfile);
+        return memberProfileRepository.saveAndFlush(memberProfile1);
     }
 
     @Override
